@@ -1,0 +1,178 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+    position:relative;
+    
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-bottom: 2px solid #ddd;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    text-align: left;
+    margin-top: 80px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    flex-grow: 1; 
+    white-space: nowrap;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+button:hover {
+    background-color: #0056b3;
+}
+
+p {
+    margin-top: 10px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.password-container {
+    position: relative;
+}
+
+.password-tooltip {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 105%;
+    background: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    width: 280px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    white-space: nowrap;
+    font-size: smaller;
+}
+
+.password-container:hover .password-tooltip {
+    display: block;
+}
+
+.password-tooltip ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+    text-align: left;
+}
+
+.password-tooltip li {
+    margin-bottom: 5px;
+}
+
+.center {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    text-align: center; 
+}
+
+.user-management{
+    display: flex;
+    justify-content: right; 
+    align-items: center; 
+    text-align: right; 
+    width: 100%; 
+}
+.user-management {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 20px;
+}
+
+.user-icon-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; 
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    min-width: 160px;
+    text-align: right;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.user-icon-container:hover .dropdown-content {
+    display: block;
+}
