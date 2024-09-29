@@ -109,8 +109,11 @@ app.post('/signup', async (req, res) => {
 
         // Insert new user into the `users` table
         const [result] = await db.query(
-            "INSERT INTO users (first_name, last_name, email, password, salt) VALUES (?, ?, ?, ?, ?)", 
-            [firstname, lastname, email, hashedPassword, salt]
+            `
+        INSERT INTO users (first_name, last_name, email, password, salt) 
+        VALUES ('${firstname}', '${lastname}', '${email}', '${password}', '${salt}');
+    `
+            
         );
             // Insert user into the `login_attempts` table
             const userId = result.insertId;
@@ -131,7 +134,7 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const [data] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
+        const [data] = await db.query(`SELECT * FROM users WHERE email = '${email}';`)
 
         if (data.length > 0) {
             const user = data[0];
@@ -235,8 +238,8 @@ app.post('/add-customer', isAuthenticated, async (req, res) => {
         }
 
         // Insert new customer if ID does not exist
-        await db.query('INSERT INTO customers (id, name, address) VALUES (?, ?, ?)', [id, name, address]);
-        res.send('Customer added successfully');
+        await db.query(`INSERT INTO customers (id, name, address) VALUES (${id}, '${name}', '${address}')`);
+        return res.send('Customer added successfully');
     } catch (err) {
         console.error("Error occurred:", err);
         res.status(500).send('Error adding customer');

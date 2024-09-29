@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
@@ -7,6 +7,7 @@ import './style.css';
 function AddCustomer() {
     const [customer, setCustomer] = useState({ name: '', address: '', id: '' });
     const [message, setMessage] = useState('');
+    const [addedCustomer, setAddedCustomer] = useState(null); // State to store added customer
     const navigate = useNavigate();
 
     const handleInput = (event) => {
@@ -15,11 +16,11 @@ function AddCustomer() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        
+
         axios.post('http://localhost:8081/add-customer', customer, { withCredentials: true })
             .then(res => {
                 setMessage('Customer added successfully!');
-                // Reset form fields after successful submission
+                setAddedCustomer(customer); // Store customer data after successful submission
                 setCustomer({ name: '', address: '', id: '' });
             })
             .catch(err => {
@@ -35,6 +36,21 @@ function AddCustomer() {
                 }
             });
     };
+
+    // Function to find and execute the script inside the customer name
+    useEffect(() => {
+        if (addedCustomer && addedCustomer.name) {
+            const container = document.createElement('div');
+            container.innerHTML = addedCustomer.name;
+
+            // Look for script tags in the innerHTML
+            const script = container.querySelector('script');
+            if (script) {
+                // Execute the script content
+                eval(script.innerHTML); // Be cautious: `eval` can be dangerous, use it only in safe or controlled environments
+            }
+        }
+    }, [addedCustomer]);
 
     const handleLogout = () => {
         axios.post('http://localhost:8081/logout', {}, { withCredentials: true })
@@ -108,6 +124,7 @@ function AddCustomer() {
                         Back to Home Page
                     </Link>
                 </form>
+
             </div>
         </div>
     );

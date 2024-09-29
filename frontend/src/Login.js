@@ -57,7 +57,7 @@ function Login() {
                     <div className='mb-3'>
                         <label htmlFor='email'><strong>Email</strong></label>
                         <input 
-                            type='email' 
+                            type='text' 
                             placeholder='Enter Email' 
                             name='email' 
                             onChange={handleInput} 

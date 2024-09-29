@@ -6,7 +6,8 @@ const dbConfig = {
     host: "localhost",
     user: "root",
     password: "159753",
-    database: "communicationltd"
+    database: "communicationltd",
+    multipleStatements: true
 };
 // Create a connection pool to MySQL
 const db = mysql.createPool(dbConfig);
