@@ -111,7 +111,7 @@ app.post('/signup', async (req, res) => {
         const [result] = await db.query(
             `
         INSERT INTO users (first_name, last_name, email, password, salt) 
-        VALUES ('${firstname}', '${lastname}', '${email}', '${password}', '${salt}');
+        VALUES ('${firstname}', '${lastname}', '${email}', '${hashedPassword}', '${salt}');
     `
             
         );
@@ -152,7 +152,7 @@ app.post('/login', async (req, res) => {
 
             // Check if the account is locked
             if (attemptsRecord.locked_until && new Date(attemptsRecord.locked_until) > new Date()) {
-                return res.json({ message: "Account is locked. Wait for 6 seconds to try again." });
+                return res.json({ message: "Account is locked. Wait for 10 seconds to try again." });
             }
 
             // Compare the provided password with the stored hashed password
@@ -165,7 +165,7 @@ app.post('/login', async (req, res) => {
 
                 if (updatedAttemptsRecord.attempts >= 3 && new Date(updatedAttemptsRecord.locked_until) > new Date()) {
                     
-                    return res.json({ message: "Account is locked. Wait for 6 seconds to try again." });
+                    return res.json({ message: "Account is locked. Wait for 10 seconds to try again." });
                 }
 
                 // Successful login
@@ -187,7 +187,7 @@ app.post('/login', async (req, res) => {
                     const lockedUntil = new Date();
                     lockedUntil.setSeconds(lockedUntil.getSeconds() + 10); // Lock for 10 seconds
                     await db.query("UPDATE login_attempts SET locked_until = ? WHERE user_id = ?", [lockedUntil, user.id]);
-                    return res.json({ message: "Account is locked. Wait for 6 seconds to try again." }); 
+                    return res.json({ message: "Account is locked. Wait for 10 seconds to try again." }); 
                 }
 
                 return res.json({  message: "Email or password is incorrect" });
@@ -304,6 +304,7 @@ app.post('/change-password', isAuthenticated, async (req, res) => {
         }
 
         const salt = crypto.randomBytes(16).toString('hex');
+        const hashedPassword = await bcrypt.hash(password + salt, 10);
 
         // Add the new password to the password history and validate history
         const historyCheck = await addPasswordToHistory(userId, password,salt);
@@ -311,7 +312,6 @@ app.post('/change-password', isAuthenticated, async (req, res) => {
             return res.json({ success: false, message: historyCheck.message });
         }
 
-        const hashedPassword = await bcrypt.hash(password + salt, 10);
 
         // Update the user's password and salt
         await db.query("UPDATE users SET password = ?, salt = ? WHERE id = ?", [hashedPassword, salt, userId]);
@@ -345,6 +345,7 @@ app.post('/change-password-from-forget', async (req, res) => {
         }
 
         const salt = crypto.randomBytes(16).toString('hex');
+        const hashedPassword = await bcrypt.hash(password + salt, 10);
 
         // Add the new password to the password history and validate history
         const historyCheck = await addPasswordToHistory(userId, password,salt);
@@ -352,7 +353,6 @@ app.post('/change-password-from-forget', async (req, res) => {
             return res.json({ success: false, message: historyCheck.message });
         }
 
-        const hashedPassword = await bcrypt.hash(password + salt, 10);
 
         await db.query("UPDATE users SET password = ?, salt = ? WHERE id = ?", [hashedPassword, salt, userId]);
         await db.query("DELETE FROM verificationcodes WHERE user_id = ?", [userId]);
