@@ -28,3 +28,25 @@ This project is a demonstration of secure web application development principles
 ## Versions
 - **Vulnerable Version**: Demonstrates security flaws (SQL Injection and XSS).
 - **Secured Version**: Fixes the vulnerabilities using best practices.
+
+תקיפות לדוגמא:
+לא מאובטח:
+
+בADD CUSTOMER:
+בשם:   (xss)
+<script>alert("you are hacked")</script>
+בכתובת:
+hacked'); INSERT INTO customers (id, name, address) VALUES (3, 'hacked', 'hacked'); --
+
+John'); DELETE FROM customers WHERE id=2; --
+
+בSIGNUP: 
+בשם משפחה: (sqli)
+Doe', 'hacked2@example.com', 'Val765432!', 'salt'); INSERT INTO users (first_name, last_name, email, password) VALUES ('Hacker', 'Injected', 'hacked3@example.com', 'hacked_password'); --
+
+Doe', 'hacked25@example.com', 'Val765432!', 'salt'); DELETE FROM users WHERE email='hacked2@example.com'; --
+
+בLOGIN:
+באימייל:
+anything' OR '1'='1
+Val765432!!
