@@ -5,7 +5,7 @@ This project is a demonstration of secure web application development principles
 
 ## Demo
 
-<img src="screen-recorder.gif" width="200" alt="Demo">
+<img src="screen-recorder.gif" width="700" alt="Demo">
 
 ## Project Features
 1. **Relational Database**: Implemented using MySQL.
