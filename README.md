@@ -3,6 +3,10 @@
 ## Introduction
 This project is a demonstration of secure web application development principles combined with examples of common security vulnerabilities, including **SQL Injection** and **XSS (Cross-Site Scripting)**. The web-based information system is built for the fictional company **Comunication_LTD**, which manages internet packages and customer data through a relational database.
 
+## Demo
+
+<img src="screen-recorder.gif" width="200" alt="Demo">
+
 ## Project Features
 1. **Relational Database**: Implemented using MySQL.
 2. **Web Application**: Developed in JavaScript, Html, CSS.
